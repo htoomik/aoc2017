@@ -21,5 +21,19 @@ namespace AoC.Test
         {
             Console.WriteLine(Day03.Solve(368078));
         }
+
+
+        [Test]
+        public void Examples2()
+        {
+            Assert.That(Day03.Solve2(800), Is.EqualTo(806));
+        }
+
+
+        [Test]
+        public void Step2()
+        {
+            Console.WriteLine(Day03.Solve2(368078));
+        }
     }
 }
