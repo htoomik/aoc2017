@@ -6,6 +6,8 @@ open AoC.FSharp
 [<TestFixture>]
 type Test01() =
     [<Test>]
-    member __.Example1() =
-        let actual = Day01.solve "1122"
-        Assert.That(actual, Is.EqualTo(4))
+    member __.Examples1() =
+        Assert.That(Day01.solve "1122", Is.EqualTo(3))
+        Assert.That(Day01.solve "1111", Is.EqualTo(4))
+        Assert.That(Day01.solve "1234", Is.EqualTo(0))
+        Assert.That(Day01.solve "91212129", Is.EqualTo(9))
