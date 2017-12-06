@@ -48,12 +48,14 @@
     <Compile Include="Code\Day03.cs" />
     <Compile Include="Code\Day04.cs" />
     <Compile Include="Code\Day05.cs" />
+    <Compile Include="Code\Day06.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test\Test01.cs" />
     <Compile Include="Test\Test02.cs" />
     <Compile Include="Test\Test03.cs" />
     <Compile Include="Test\Test04.cs" />
     <Compile Include="Test\Test05.cs" />
+    <Compile Include="Test\Test06.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
