@@ -1,7 +1,5 @@
 namespace AoC.FSharp
 
-open System
-
 module Day01 =
     let solve (inData:string) = 
         let toInts s =
@@ -9,8 +7,8 @@ module Day01 =
         let is = toInts inData
         let isShifted = is.Tail @ [is.Head]
 
-        printfn "is: %A" is
-        printfn "isShifted: %A" isShifted
+        //printfn "is: %A" is
+        //printfn "isShifted: %A" isShifted
 
         let sumMatches list1 list2 =
             let matches = List.map2 (fun i1 i2 -> 
