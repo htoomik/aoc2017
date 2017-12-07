@@ -1,4 +1,4 @@
-﻿#load "Day04.fs"
+﻿#load "Day05.fs"
 
 open System.IO
 open AoC.FSharp
@@ -18,6 +18,11 @@ open AoC.FSharp
 //Day02.solve d2
 //Day02.solve2 d2
 
-let d4 = File.ReadAllLines(@"C:\Code\AoC 2017\input_04.txt")
-Seq.filter Day04.solve d4 |> Seq.length
-Seq.filter Day04.solve2 d4 |> Seq.length
+//let d4 = File.ReadAllLines(@"C:\Code\AoC 2017\input_04.txt")
+//Seq.filter Day04.solve d4 |> Seq.length
+//Seq.filter Day04.solve2 d4 |> Seq.length
+
+let lines = File.ReadAllLines(@"C:\Code\AOC 2017\input_05.txt")
+let d5 = Seq.map (fun line -> int line) lines
+Day05.solve d5
+Day05.solve2 d5
