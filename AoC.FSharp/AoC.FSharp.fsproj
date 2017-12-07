@@ -51,10 +51,12 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
+    <Content Include="packages.config" />
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Day01.fs" />
     <Compile Include="Test01.fs" />
-    <Content Include="packages.config" />
+    <Compile Include="Day02.fs" />
+    <Compile Include="Test02.fs" />
     <None Include="Script1.fsx" />
   </ItemGroup>
   <ItemGroup>
