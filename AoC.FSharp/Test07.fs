@@ -22,4 +22,6 @@ type Test07() =
             "gyxo (61)";
             "cntj (57)"
         |]
-        Assert.That(Day07.solve indata, Is.EqualTo("tknk"))
+        let (rootName, imbalance) = Day07.solve indata
+        Assert.That(rootName, Is.EqualTo("tknk"))
+        Assert.That(imbalance, Is.EqualTo(60))

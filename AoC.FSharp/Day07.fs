@@ -40,4 +40,36 @@ module Day07 =
         let nodes = parse indata
         let root = findRoot nodes
 
-        root.Name
+        let findChildren (node: Node) (nodes: seq<Node>) =
+            nodes |> Seq.filter (fun n -> node.Children |> Seq.contains n.Name)
+        
+        let rec weigh (node: Node) (nodes: seq<Node>) =
+            let children = findChildren node nodes
+            let childWeights = children |> Seq.map (fun c -> weigh c nodes)
+            let fullWeight = node.Weight + (childWeights |> Seq.map (fun (n, w) -> w) |> Seq.sum)
+            (node, fullWeight)
+
+        let rec findImbalance (nodes: seq<Node>) (allNodes: seq<Node>) =
+            let weights = nodes |> Seq.map (fun c -> weigh c allNodes)
+            let weightsGrouped = weights |> Seq.groupBy (fun (n, w) -> w)
+        
+            let isInBalance = Seq.length weightsGrouped = 1
+            if isInBalance then
+                None
+            else
+                let (deviantWeight, deviantNodes) = weightsGrouped |> Seq.find (fun (k, v) -> Seq.length v = 1)
+                let (normalWeight, _ ) = weightsGrouped |> Seq.find (fun (k, v) -> Seq.length v > 1)
+                let (deviantNode, w) = Seq.head deviantNodes
+                let itsChildren = findChildren deviantNode allNodes
+                if Seq.length itsChildren = 0 then
+                    Some normalWeight
+                else
+                    let imbalancedChild = findImbalance itsChildren allNodes
+                    match imbalancedChild with 
+                    | Some _ -> imbalancedChild
+                    | None -> Some (deviantNode.Weight + normalWeight - deviantWeight)
+        
+        let childrenOfRoot = findChildren root nodes
+        let imbalance = findImbalance childrenOfRoot nodes
+
+        (root.Name, Option.get imbalance)
