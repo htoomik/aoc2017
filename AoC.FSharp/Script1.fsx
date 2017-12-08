@@ -1,4 +1,4 @@
-﻿#load "Day06.fs"
+﻿#load "Day07.fs"
 
 open System.IO
 open AoC.FSharp
@@ -27,6 +27,9 @@ open AoC.FSharp
 //Day05.solve d5
 //Day05.solve2 d5
 
-let s = File.ReadAllText(@"C:\Code\AoC 2017\input_06.txt").Trim()
-let d6 = Array.map (fun x -> int x) (s.Split('\t'))
-Day06.solve d6
+//let s = File.ReadAllText(@"C:\Code\AoC 2017\input_06.txt").Trim()
+//let d6 = Array.map (fun x -> int x) (s.Split('\t'))
+//Day06.solve d6
+
+let d7 = File.ReadAllLines(@"C:\Code\AoC 2017\input_07.txt")
+Day07.solve d7
