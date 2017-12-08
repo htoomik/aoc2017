@@ -10,6 +10,10 @@ module Day08 =
         CX: int;
     }
 
+    type Register = string * int
+
+    type State = { Registers: list<Register>; Max: int }
+
     let parse (line: string) =
         let parts = line.Split(' ')
         let reg = parts.[0]
@@ -32,29 +36,35 @@ module Day08 =
         | ">=" -> v >= cx
         | _ -> failwith "unexpected operator"
 
-    let isApplicable instruction state =
-        let (reg, value) = Seq.find (fun (r, v) -> r = instruction.CReg) state
+    let isApplicable instruction registers =
+        let (reg, value) = Seq.find (fun (r, v) -> r = instruction.CReg) registers
         matches instruction value
 
     let getNewValue v instruction =
         if instruction.Op = "inc" then v + instruction.X else v - instruction.X
 
-    let calculate r v instruction (state: list<string * int>) =
-        if r = instruction.Reg && (isApplicable instruction state) then 
+    let calculate r v instruction (state: State) =
+        if r = instruction.Reg && (isApplicable instruction state.Registers) then 
             getNewValue v instruction
         else 
             v
 
-    let apply (state: list<string * int>) (instruction: Instruction) =
-        List.map (fun (r, v) -> (r, calculate r v instruction state)) state
+    let getMax registers =
+        List.max (List.map (fun (r, v) -> v) registers)
+
+    let apply (state: State) (instruction: Instruction) =
+        let newRegs = List.map (fun (r, v) -> (r, calculate r v instruction state)) state.Registers
+        let mx = getMax newRegs
+        { Registers = newRegs; Max = max mx state.Max }
 
     let solve indata = 
         let instructions = Seq.map parse indata |> Seq.toList
         let emptyRegisters = List.map (fun i -> (i.Reg, 0)) instructions
+        let originalState = { Registers = emptyRegisters; Max = 0 }
 
-        let state = List.fold (fun s i -> apply s i ) emptyRegisters instructions
-        let max = List.max (List.map (fun (r, v) -> v) state)
+        let state = List.fold (fun s i -> apply s i ) originalState instructions
+        let finalMax = getMax state.Registers
 
-        max
+        (finalMax, state.Max)
 
         

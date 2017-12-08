@@ -13,4 +13,6 @@ type Test08() =
             "c dec -10 if a >= 1";
             "c inc -20 if c == 10"
         ]
-        Assert.That(Day08.solve indata, Is.EqualTo(1))
+        let (finalMax, runningMax) = Day08.solve indata
+        Assert.That(finalMax, Is.EqualTo(1))
+        Assert.That(runningMax, Is.EqualTo(10))
