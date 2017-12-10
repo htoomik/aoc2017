@@ -2,10 +2,6 @@ import sys
 
 enc = "ascii"
 
-# Note: ugly globals! Don't run multiple examples together, they will mess up each other.
-pos = 0
-skip = 0
-
 def process(indata):
     global pos, skip
 
