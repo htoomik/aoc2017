@@ -55,21 +55,28 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Day01.fs" />
     <Compile Include="Test01.fs" />
+    <None Include="Script01.fsx" />
     <Compile Include="Day02.fs" />
     <Compile Include="Test02.fs" />
+    <None Include="Script02.fsx" />
     <Compile Include="Day04.fs" />
     <Compile Include="Test04.fs" />
+    <None Include="Script04.fsx" />
     <Compile Include="Day05.fs" />
     <Compile Include="Test05.fs" />
+    <None Include="Script05.fsx" />
     <Compile Include="Day06.fs" />
     <Compile Include="Test06.fs" />
+    <None Include="Script06.fsx" />
     <Compile Include="Day07.fs" />
     <Compile Include="Test07.fs" />
+    <None Include="Script07.fsx" />
     <Compile Include="Day08.fs" />
     <Compile Include="Test08.fs" />
+    <None Include="Script08.fsx" />
     <Compile Include="Day09.fs" />
     <Compile Include="Test09.fs" />
-    <None Include="Script1.fsx" />
+    <None Include="Script09.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
