@@ -1,5 +1,7 @@
 ﻿namespace AoC.FSharp
 
+open System
+
 module Day10 =
     type State = {
         Rope: int list
@@ -37,16 +39,31 @@ module Day10 =
 
     let knotMany state by =
         Seq.fold knot state by
-
-    let tangle length by =
+  
+    let solve1 length (s: string) =
+        let by = Array.map (fun s -> int s) (s.Split(','))
         let rope = [0 .. length]
         let state = { Rope = rope; Pos = 0; Skip = 0 }
-        knotMany state by
-
-    let solve length (s: string) =
-        let by = Array.map (fun s -> int s) (s.Split(','))
-        //printfn "by %A" by
-        let tangled = tangle length by
-        printfn "%A" tangled
+        let tangled = knotMany state by
         tangled.Rope.[0] * tangled.Rope.[1]
     
+    let adjustInput (s: string) =
+        let bytes = Seq.map (fun c -> int c) s
+        Seq.append bytes [| 17; 31; 73; 47; 23 |]
+
+    let densify values =
+        Seq.reduce (fun i j -> i ^^^ j) values
+    
+    let toHex (values: seq<int>) =
+        let hexes = Seq.map (fun (x: int) -> String.Format("{0:X2}", x).ToLower()) values
+        String.concat "" hexes
+
+    let solve2 length s =
+        let adjusted = adjustInput s
+        let rope = [0 .. length]
+        let initialState = { Rope = rope; Pos = 0; Skip = 0 }
+        let tangled = Seq.fold (fun state _ -> knotMany state adjusted) initialState { 1 .. 64 }
+        let blocks = Seq.map (fun i -> (Seq.take 16 (Seq.skip (i * 16) tangled.Rope))) { 0 .. 15 }
+        let denseBlocks = Seq.map densify blocks
+        let hexed = toHex denseBlocks
+        hexed
