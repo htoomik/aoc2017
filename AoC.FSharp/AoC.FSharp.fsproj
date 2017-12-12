@@ -63,6 +63,7 @@
     <Compile Include="Test04.fs" />
     <None Include="Script04.fsx" />
     <Compile Include="Day05.fs" />
+    <Compile Include="Day05_nm.fs" />
     <Compile Include="Test05.fs" />
     <None Include="Script05.fsx" />
     <Compile Include="Day06.fs" />
