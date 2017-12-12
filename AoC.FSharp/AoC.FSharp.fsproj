@@ -77,6 +77,9 @@
     <Compile Include="Day09.fs" />
     <Compile Include="Test09.fs" />
     <None Include="Script09.fsx" />
+    <Compile Include="Day10.fs" />
+    <Compile Include="Test10.fs" />
+    <None Include="Script10.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
