@@ -19,8 +19,8 @@ module Day13 =
     let tryFindLayer i layers =
         Seq.tryFind (fun layer -> layer.Depth = i) layers
 
-    let test t delay (layers: seq<Layer>) =
-        let layer = tryFindLayer t layers
+    let test t delay (layers: List<Option<Layer>>) =
+        let layer = layers.[t]
         match layer with
         | None -> 0
         | Some l -> 
@@ -32,12 +32,12 @@ module Day13 =
     let cross delay maxDepth layers =
         Seq.map (fun i -> test i delay layers) {0..maxDepth}
     
-    let score (catches: seq<int>) layers =
+    let score (catches: seq<int>) (layers: List<Option<Layer>>) =
         let scores = Seq.mapi (fun i c -> 
             if c = 0 then
                 0
             else
-                let layer = tryFindLayer i layers
+                let layer = layers.[i]
                 match layer with
                 | None -> 0
                 | Some l -> l.Score) catches
@@ -49,13 +49,15 @@ module Day13 =
     let solve1 (indata: seq<string>) = 
         let layers = Seq.map parse indata
         let maxDepth = Seq.max (Seq.map (fun l -> l.Depth) layers)
-        let catches = cross 0 maxDepth layers
-        let scores = score catches layers
+        let allLayers = List.map (fun i -> tryFindLayer i layers) [0..maxDepth]
+        let catches = cross 0 maxDepth allLayers
+        let scores = score catches allLayers
         Seq.sum scores
 
     let rec solveRec i maxDepth layers =
         let catches = cross i maxDepth layers
         let result = Seq.max catches
+        if i % 1000000 = 0 then (printfn "%A" i) else ()
         if result = 0 then
             i
         else 
@@ -64,4 +66,5 @@ module Day13 =
     let solve2 (indata: seq<string>) =
         let layers = Seq.map parse indata
         let maxDepth = Seq.max (Seq.map (fun l -> l.Depth) layers)
-        solveRec 0 maxDepth layers
+        let allLayers = List.map (fun i -> tryFindLayer i layers) [0..maxDepth]
+        solveRec 0 maxDepth allLayers
