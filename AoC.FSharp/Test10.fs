@@ -44,7 +44,7 @@ type Test10() =
 
     [<Test>]
     member __.ExampleStep2() = 
-        Assert.That(Day10.solve2 255 "", Is.EqualTo("a2582a3a0e66e6e86e3812dcb672a272"))
-        Assert.That(Day10.solve2 255 "AoC 2017", Is.EqualTo("33efeb34ea91902bb2f59c9920caa6cd"))
-        Assert.That(Day10.solve2 255 "1,2,3", Is.EqualTo("3efbe78a8d82f29979031a4aa0b16a9d"))
-        Assert.That(Day10.solve2 255 "1,2,4", Is.EqualTo("63960835bcdc130f0b66d7ff4f6a5a8e"))
+        Assert.That(Day10.solve2 "", Is.EqualTo("a2582a3a0e66e6e86e3812dcb672a272"))
+        Assert.That(Day10.solve2 "AoC 2017", Is.EqualTo("33efeb34ea91902bb2f59c9920caa6cd"))
+        Assert.That(Day10.solve2 "1,2,3", Is.EqualTo("3efbe78a8d82f29979031a4aa0b16a9d"))
+        Assert.That(Day10.solve2 "1,2,4", Is.EqualTo("63960835bcdc130f0b66d7ff4f6a5a8e"))

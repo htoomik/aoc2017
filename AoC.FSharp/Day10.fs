@@ -58,9 +58,9 @@ module Day10 =
         let hexes = Seq.map (fun (x: int) -> String.Format("{0:X2}", x).ToLower()) values
         String.concat "" hexes
 
-    let solve2 length s =
+    let solve2 s =
         let adjusted = adjustInput s
-        let rope = [0 .. length]
+        let rope = [0 .. 255]
         let initialState = { Rope = rope; Pos = 0; Skip = 0 }
         let tangled = Seq.fold (fun state _ -> knotMany state adjusted) initialState { 1 .. 64 }
         let blocks = Seq.map (fun i -> (Seq.take 16 (Seq.skip (i * 16) tangled.Rope))) { 0 .. 15 }
