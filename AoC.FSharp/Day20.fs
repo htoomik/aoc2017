@@ -51,7 +51,7 @@ module Day20 =
         let closestPoint = List.minBy (fun p -> distance p) points
         closestPoint.i
     
-    let moveAll points closest timeAsClosest killCollisions =
+    let moveAll points result timeUnchanged killCollisions resultFunction =
         let movedPoints = List.map move points
         let adjustedPoints = 
             if killCollisions then
@@ -62,26 +62,45 @@ module Day20 =
                 exCollisions
             else
                 movedPoints
-        let newClosest = findClosest adjustedPoints
-        let newTime = if newClosest = closest then timeAsClosest + 1 else 1
+        let newResult = resultFunction adjustedPoints
+        let newTime = if newResult = result then timeUnchanged + 1 else 1
         //printfn "Point %A is closest, and has been closest %A times" newClosest newTime
-        (adjustedPoints, newClosest, newTime)
+        (adjustedPoints, newResult, newTime)
 
-    let rec solveRec points closest timeAsClosest killCollisions n =
+    let rec solveRec1 points closest timeAsClosest n =
         if timeAsClosest > 1000 then
             closest
         elif n > 10000 then
             printfn "Giving up"
             closest
         else
-            let (newPoints, newClosest, newTime) = moveAll points closest timeAsClosest killCollisions
-            solveRec newPoints newClosest newTime killCollisions (n + 1)
+            let (newPoints, newClosest, newTime) = moveAll points closest timeAsClosest false findClosest
+            solveRec1 newPoints newClosest newTime (n + 1)
 
-    let solve (d: string list) killCollisions =
+    let rec solveRec2 (points: Point list) count timeUnchanged n =
+        if timeUnchanged > 100 then
+            points.Length
+        elif n > 10000 then
+            printfn "Giving up"
+            points.Length
+        else
+            let (newPoints, newCount, newTime) = (moveAll points count timeUnchanged true (fun points -> points.Length))
+            solveRec2 newPoints newCount newTime (n + 1)
+
+    let solve1 (d: string list) =
         let points = List.mapi (fun line i-> parse line i) d
         printfn "%A" points
 
         let initialClosest = findClosest points
         printfn "Point %A is closest initially" initialClosest
 
-        solveRec points initialClosest 0 killCollisions 0
+        solveRec1 points initialClosest 0 0
+
+    let solve2 (d: string list) =
+        let points = List.mapi (fun line i-> parse line i) d
+        printfn "%A" points
+
+        let initialCount = points.Length
+        printfn "Initial count %A" initialCount
+        
+        solveRec2 points initialCount 0 0
